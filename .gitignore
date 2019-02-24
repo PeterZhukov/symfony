@@ -1,0 +1,27 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/var/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+###>custom settings###
+/node_modules
+/.env
+/.env.test
+/.env.*
+/.phpunit.result.cache
+/npm-debug.log
+/yarn-error.log
+/.idea
+###<custom settings###
