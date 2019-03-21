@@ -4,7 +4,19 @@ sonata_admin:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
 
+
+
+
 sonata_block:
+    #container:
+    #    types: ['sonata.block.service.container', 'sonata.page.block.container', 'sonata.dashboard.block.container', 'cmf.block.container', 'cmf.block.slideshow']
+        #templates:
+        #    '@Test/my.html.twig':
+        #        'my test templates'
+        #    'test23':
+        #        'my test2 tempalte'
     blocks:
         sonata.admin.block.admin_list:
-            contexts: [admin]
+            contexts: ['test', 'test2']
+        sonata.block.service.rss:
+            contexts: ['test']
