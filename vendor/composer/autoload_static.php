@@ -13,8 +13,8 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        'd11dcc0191a380951885e568af488540' => __DIR__ . '/..' . '/sonata-project/block-bundle/src/Resources/stubs/symfony2.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'd11dcc0191a380951885e568af488540' => __DIR__ . '/..' . '/sonata-project/block-bundle/src/Resources/stubs/symfony2.php',
         '3722f872abd441c379baeab7b88038ba' => __DIR__ . '/..' . '/nelmio/alice/src/deep_clone.php',
     );
 
@@ -141,6 +141,7 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'F' => 
         array (
             'Fig\\Link\\' => 9,
+            'Fidry\\AliceDataFixtures\\' => 24,
             'Faker\\' => 6,
             'Facebook\\WebDriver\\' => 19,
         ),
@@ -540,6 +541,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'Fig\\Link\\' => 
         array (
             0 => __DIR__ . '/..' . '/fig/link-util/src',
+        ),
+        'Fidry\\AliceDataFixtures\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/theofidry/alice-data-fixtures/src',
         ),
         'Faker\\' => 
         array (

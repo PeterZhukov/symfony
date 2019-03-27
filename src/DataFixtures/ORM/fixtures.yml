@@ -23,12 +23,12 @@ App\Entity\SubFamily:
 
 App\Entity\User:
     user_{1..10}:
-        email: weaverryan+<current()>@gmail.com
+        email: weaverryan+<current()>\@gmail.com
         plainPassword: iliketurtles
         roles: ['ROLE_ADMIN']
         avatarUri: <imageUrl(100, 100, 'abstract')>
     user.aquanaut_{1..10}:
-        email: aquanaut<current()>@example.org
+        email: aquanaut<current()>\@example.org
         plainPassword: aquanote
         isScientist: true
         firstName: <firstName()>

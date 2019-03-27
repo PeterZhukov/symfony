@@ -12,14 +12,9 @@ class LoadFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $loader = new Nelmio\Alice\Loader\NativeLoader();
-        $objects = Fixtures::load(
-            __DIR__.'/fixtures.yml',
-            $manager,
-            [
-                'providers' => [$this]
-            ]
-        );
+        $loader = new \Nelmio\Alice\Loader\NativeLoader();
+        $loader->getFakerGenerator()->addProvider($this);
+        $objectSet = $loader->loadFile(__DIR__.'/fixtures.yml');
     }
 
     public function genus()
