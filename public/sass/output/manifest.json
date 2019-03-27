@@ -1,0 +1,4 @@
+{
+  "bundles/easyadmin/index.css": "./index.css",
+  "bundles/easyadmin/index.js": "./index.js"
+}

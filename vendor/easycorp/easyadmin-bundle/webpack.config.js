@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+const util = require('util');
 
 Encore
     .setOutputPath('./src/Resources/public/')
@@ -7,7 +8,7 @@ Encore
 
     .cleanupOutputBeforeBuild()
     .enableSassLoader()
-    .enableSourceMaps(false)
+    .enableSourceMaps(true)
     .enableVersioning(false)
     .disableSingleRuntimeChunk()
     .autoProvidejQuery()

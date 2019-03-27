@@ -4,3 +4,9 @@
 #        - App\Entity\Product
 #        - App\Entity\Category
 #        - App\Entity\User
+easy_admin:
+  entities:
+    - App\Entity\Genus
+    - App\Entity\GenusNote
+    - App\Entity\SubFamily
+    - App\Entity\User
