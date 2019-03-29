@@ -1,17 +1,19 @@
 'use strict';
 
-let animal = {
-    walk() { alert("I'm walking"); console.log(this); }
-};
-
-let rabbit = {
-    __proto__: animal,
-    walk() {
-        super.walk();
+class Animal {
+    constructor(name) {
+        this.name = name;
     }
-};
+}
 
-let walk = rabbit.walk; // скопируем метод в переменную
-walk(); // вызовет animal.walk()
-// I'm walking
-rabbit.walk();
+class Rabbit extends Animal {
+    constructor() {
+        this.name = 'Peter';
+        alert(this); // ошибка, this не определён!
+        // обязаны вызвать super() до обращения к this
+        super();
+        // а вот здесь уже можно использовать this
+    }
+}
+
+new Rabbit();

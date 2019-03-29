@@ -5,8 +5,75 @@
 #        - App\Entity\Category
 #        - App\Entity\User
 easy_admin:
+  site_name: Aqua<i>Note</i>
+  design:
+    brand_color: '#81b9ba'
+    assets:
+      css: ['css/custom_backend.css']
+    templates:
+      field_id: 'admin/fields/_id.html.twig'
+  user:
+    avatar_property_path: 'avatar_uri'
+    name_property_path: 'email'
   entities:
-    - App\Entity\Genus
-    - App\Entity\GenusNote
-    - App\Entity\SubFamily
-    - App\Entity\User
+    Genus:
+      class: App\Entity\Genus
+      label: Genuses
+      help: 'Genuses are not covered by warranty!'
+      list:
+        help: 'Do not feed!'
+        actions:
+          - { name: edit, icon: pencil, label: Edit }
+          - { name: show, icon: info-circle, label: '' }
+        fields:
+          - id
+          - name
+          - isPublished
+          - { property: firstDiscoveredAt, format: 'M Y', label: Discovered }
+          - { property: speciesCount, format: '%b' }
+        sort:
+          - name
+          - ASC
+      search:
+        help: ~
+        fields:
+          - id
+          - name
+          - funFact
+    GenusHorde:
+      class: App\Entity\Genus
+      label: HORDE of Genuses
+      list:
+        dql_filter: 'entity.speciesCount >= 50000 and entity.isPublished = true'
+        sort: speciesCount
+        help: 'Run for your life!!!'
+    GenusNote:
+      class: App\Entity\GenusNote
+      label: 'Genus Notes'
+      list:
+        title: 'List of Notes'
+        fields:
+          - id
+          - username
+          - { property: userAvatarFilename, label: 'User avatar', type: image, base_path: '/images/', sortable: false }
+          - createdAt
+          - genus
+        sort: ['genus.name', 'ASC']
+    SubFamily:
+      class: App\Entity\SubFamily
+      list:
+        actions: ['-show']
+      disabled_actions:
+        - show
+    User:
+      class: App\Entity\User
+      list:
+        fields:
+          - id
+          - { property: email, type: email }
+          - { property: isScientist, label: 'Is Scientist?', type: boolean }
+          - { property: fullName, template: '@EasyAdmin/default/_field_user_full_name.html.twig' }
+          - { property: avatarUri, type: image }
+  list:
+    title: 'List of %%entity_label%%'
+    actions: ['show']

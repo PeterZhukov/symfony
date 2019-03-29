@@ -2,19 +2,28 @@
 
 namespace App\DataFixtures\ORM;
 
-use App\Entity\Genus;
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Nelmio\Alice\Fixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadFixtures extends Fixture
+class LoadFixtures extends Fixture implements ContainerAwareInterface
 {
+    /** @var ContainerInterface */
+    protected $container;
+    /**
+     * Sets the container.
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
+
     public function load(ObjectManager $manager)
     {
-        $loader = new \Nelmio\Alice\Loader\NativeLoader();
-        $loader->getFakerGenerator()->addProvider($this);
-        $objectSet = $loader->loadFile(__DIR__.'/fixtures.yml');
+        $loader = $this->container->get('fidry_alice_data_fixtures.loader.doctrine');
+        $loader->load([__DIR__.'/fixtures.yml']);
     }
 
     public function genus()
