@@ -128,11 +128,13 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Michelf\\' => 8,
         ),
         'K' => 
         array (
             'Knp\\Menu\\' => 9,
             'Knp\\Bundle\\MenuBundle\\' => 22,
+            'Knp\\Bundle\\MarkdownBundle\\' => 26,
         ),
         'G' => 
         array (
@@ -526,6 +528,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'Michelf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
+        ),
         'Knp\\Menu\\' => 
         array (
             0 => __DIR__ . '/..' . '/knplabs/knp-menu/src/Knp/Menu',
@@ -533,6 +539,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'Knp\\Bundle\\MenuBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/knplabs/knp-menu-bundle/src',
+        ),
+        'Knp\\Bundle\\MarkdownBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/knplabs/knp-markdown-bundle',
         ),
         'Gedmo\\' => 
         array (

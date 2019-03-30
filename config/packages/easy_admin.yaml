@@ -9,9 +9,16 @@ easy_admin:
   design:
     brand_color: '#81b9ba'
     assets:
-      css: ['css/custom_backend.css']
+      css: ['css/custom_backend.css', '/bundles/easyadmin/bootstrap-all.css']
+      js:
+        - /bundles\/easyadmin/bootstrap-all.js
+        - https://unpkg.com/snarkdown@1.2.2/dist/snarkdown.umd.js
+        - /js/custom_backend.js
     templates:
       field_id: 'admin/fields/_id.html.twig'
+    form_theme:
+      - '@EasyAdmin/form/bootstrap_4.html.twig'
+      - 'Form/_form_theme.html.twig'
   user:
     avatar_property_path: 'avatar_uri'
     name_property_path: 'email'
@@ -45,11 +52,16 @@ easy_admin:
           - { property: id, type_options: { disabled: true } }
           - name
           - speciesCount
-          - { property: funFact, type: textarea }
+          - { property: funFact, type: textarea, css_class: 'js-markdown-input' }
           - { property: isPublished, label: 'Is Published?' }
           - { property: firstDiscoveredAt, type_options: { widget: single_text } }
           - { property: subFamily, type: easyadmin_autocomplete }
-          - { property: genusScientists, type: collection, type_options: { entry_type: App\Form\GenusScientistEmbeddedForm, allow_delete: true, allow_add: true, by_reference: false }}
+          -
+            property: genusScientists
+            type: text
+            type_options:
+              mapped: false
+              attr: { class: 'js-scientists-field' }
       new:
         fields:
           - '-id'
@@ -59,6 +71,14 @@ easy_admin:
             property: slug
             help: 'Unique auto-generated value'
             type_options: { disabled: true }
+      show:
+        actions:
+          -
+            name: genus_feed
+            type: route
+            label: Feed genus
+            css_class: 'btn btn-info'
+            icon: cutlery
     GenusHorde:
       class: App\Entity\Genus
       label: HORDE of Genuses
