@@ -67,5 +67,5 @@ DirectoryIndex index.php
     </IfModule>
 </IfModule>
 <IfModule php7_module>
-    php_flag xdebug.remote_enable On
+    php_flag xdebug.remote_enable Off
 </IfModule>

@@ -6,14 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 require dirname(__DIR__).'/config/bootstrap.php';
 
-if (
-    stripos($_SERVER['REQUEST_URI'], 'easyadmin2') !== false ||
-    stripos($_SERVER['REQUEST_URI'], '_wdt') !== false
-){
-    $_ENV['APP_ENV'] = 'dev';
-    $_SERVER['APP_ENV'] = 'dev';
-}
-
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
@@ -34,3 +26,4 @@ $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
+

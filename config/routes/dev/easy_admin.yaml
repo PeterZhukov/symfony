@@ -1,4 +1,0 @@
-easy_admin_bundle_dev:
-    resource: 'App\Controller\EasyAdminController'
-    prefix: /easyadmin2
-    type: annotation
