@@ -118,6 +118,7 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
+            'PhpAmqpLib\\' => 11,
             'Pagerfanta\\' => 11,
             'PackageVersions\\' => 16,
         ),
@@ -511,6 +512,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'PhpAmqpLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
         ),
         'Pagerfanta\\' => 
         array (

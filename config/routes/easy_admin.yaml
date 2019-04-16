@@ -2,3 +2,7 @@ easy_admin_bundle:
     resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
     prefix: '%easyadmin_prefix%'
     type: annotation
+easy_admin_dashboard:
+    resource: 'Controller/EasyAdmin/AdminController.php'
+    prefix: '%easyadmin_prefix%'
+    type: annotation

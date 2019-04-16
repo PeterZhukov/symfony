@@ -19,12 +19,31 @@ easy_admin:
     form_theme:
       - '@EasyAdmin/form/bootstrap_4.html.twig'
       - 'Form/_form_theme.html.twig'
+    menu:
+      - { label: Dashboard, route: admin_dashboard, default: true }
+      - { entity: User, label: Users, icon: user }
+      -
+        label: Genus
+        children:
+          - Genus
+          -
+            entity: Genus
+            label: 'Genuses (sorted by ID)'
+            params:
+              sortField: id
+              sortDirection: ASC
+              pizza: delicious
+          - GenusHorde
+          - { label: Related }
+          - { entity: GenusNote, label: Notes, icon: sticky-note }
+          - { entity: SubFamily, label: Sub-Families }
   user:
     avatar_property_path: 'avatar_uri'
     name_property_path: 'email'
   entities:
     Genus:
       class: App\Entity\Genus
+      controller: App\Controller\EasyAdmin\GenusController
       label: Genuses
       help: 'Genuses are not covered by warranty!'
       list:
@@ -41,6 +60,7 @@ easy_admin:
         sort:
           - name
           - ASC
+        enable_export: true
       search:
         help: ~
         fields:
@@ -115,10 +135,14 @@ easy_admin:
           - { property: avatarUri, type: image }
       form:
         fields:
-          - email
-          - isScientist
+          - { type: section, label: 'User details' }
           - { property: fullName, type: text, help: 'First then Last' }
+          - { type: divider }
           - avatarUri
+          - { type: divider }
+          - email
+          - { type: divider }
+          - isScientist
           - universityName
   list:
     title: 'List of %%entity_label%%'
