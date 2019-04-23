@@ -2179,7 +2179,7 @@
         },
         "time": "2017-10-10T15:16:12+00:00",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "lastguest\\": "src/lastguest/"
