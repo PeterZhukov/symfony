@@ -112,7 +112,7 @@ class XmlDescriptor extends Descriptor
      */
     protected function describeEventDispatcherListeners(EventDispatcherInterface $eventDispatcher, array $options = [])
     {
-        $this->writeDocument($this->getEventDispatcherListenersDocument($eventDispatcher, array_key_exists('event', $options) ? $options['event'] : null));
+        $this->writeDocument($this->getEventDispatcherListenersDocument($eventDispatcher, \array_key_exists('event', $options) ? $options['event'] : null));
     }
 
     /**
@@ -304,7 +304,7 @@ class XmlDescriptor extends Descriptor
             $serviceXML->setAttribute('id', $id);
         }
 
-        if ('' !== $classDescription = $this->getClassDescription($definition->getClass())) {
+        if ('' !== $classDescription = $this->getClassDescription((string) $definition->getClass())) {
             $serviceXML->appendChild($descriptionXML = $dom->createElement('description'));
             $descriptionXML->appendChild($dom->createCDATASection($classDescription));
         }

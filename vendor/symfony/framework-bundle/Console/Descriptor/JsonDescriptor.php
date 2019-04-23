@@ -156,7 +156,7 @@ class JsonDescriptor extends Descriptor
      */
     protected function describeEventDispatcherListeners(EventDispatcherInterface $eventDispatcher, array $options = [])
     {
-        $this->writeData($this->getEventDispatcherListenersData($eventDispatcher, array_key_exists('event', $options) ? $options['event'] : null), $options);
+        $this->writeData($this->getEventDispatcherListenersData($eventDispatcher, \array_key_exists('event', $options) ? $options['event'] : null), $options);
     }
 
     /**
@@ -220,7 +220,7 @@ class JsonDescriptor extends Descriptor
             'autoconfigure' => $definition->isAutoconfigured(),
         ];
 
-        if ('' !== $classDescription = $this->getClassDescription($definition->getClass())) {
+        if ('' !== $classDescription = $this->getClassDescription((string) $definition->getClass())) {
             $data['description'] = $classDescription;
         }
 

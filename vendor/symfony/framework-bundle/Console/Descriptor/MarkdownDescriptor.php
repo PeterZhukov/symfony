@@ -183,7 +183,7 @@ class MarkdownDescriptor extends Descriptor
     {
         $output = '';
 
-        if ('' !== $classDescription = $this->getClassDescription($definition->getClass())) {
+        if ('' !== $classDescription = $this->getClassDescription((string) $definition->getClass())) {
             $output .= '- Description: `'.$classDescription.'`'."\n";
         }
 
@@ -274,7 +274,7 @@ class MarkdownDescriptor extends Descriptor
      */
     protected function describeEventDispatcherListeners(EventDispatcherInterface $eventDispatcher, array $options = [])
     {
-        $event = array_key_exists('event', $options) ? $options['event'] : null;
+        $event = \array_key_exists('event', $options) ? $options['event'] : null;
 
         $title = 'Registered listeners';
         if (null !== $event) {

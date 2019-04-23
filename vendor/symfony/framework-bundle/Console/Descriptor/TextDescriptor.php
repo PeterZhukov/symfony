@@ -255,7 +255,7 @@ class TextDescriptor extends Descriptor
             $options['output']->title(sprintf('Information for Service "<info>%s</info>"', $options['id']));
         }
 
-        if ('' !== $classDescription = $this->getClassDescription($definition->getClass())) {
+        if ('' !== $classDescription = $this->getClassDescription((string) $definition->getClass())) {
             $options['output']->text($classDescription."\n");
         }
 
@@ -385,7 +385,7 @@ class TextDescriptor extends Descriptor
      */
     protected function describeEventDispatcherListeners(EventDispatcherInterface $eventDispatcher, array $options = [])
     {
-        $event = array_key_exists('event', $options) ? $options['event'] : null;
+        $event = \array_key_exists('event', $options) ? $options['event'] : null;
 
         if (null !== $event) {
             $title = sprintf('Registered Listeners for "%s" Event', $event);

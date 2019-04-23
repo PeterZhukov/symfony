@@ -19,15 +19,23 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            anonymous: ~
+        login:
+            pattern: ^/(login)
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
-
+            anonymous: ~
+            logout:
+                path: /logout
+            context: default
+        main:
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
             logout:
                 path: /logout
             switch_user: ~
+            context: default
 
             # activate different ways to authenticate
 

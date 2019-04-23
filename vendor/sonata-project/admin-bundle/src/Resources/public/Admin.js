@@ -729,13 +729,19 @@ var Admin = {
             setTimeout(function() {
                 form.find('button').prop('disabled', true);
             }, 1);
+
+            var tabSelected = form.find('.nav-tabs li.active .changer-tab');
+
+            if (tabSelected.length > 0) {
+                form.find('input[name="_tab"]').val(tabSelected.attr('aria-controls'));
+            }
         });
     },
     /**
      * Remember open tab after refreshing page.
      */
     setup_view_tabs_changer: function () {
-        jQuery('.changer-tab').on('click', function () {
+          jQuery('.changer-tab').on('click', function () {
             var tab = jQuery(this).attr('aria-controls'),
                 search = location.search.substring(1);
 

@@ -23,10 +23,21 @@ final class Configuration implements ConfigurationInterface
         $rootNode = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('webpack_encore');
 
         $rootNode
+            ->validate()
+                ->ifTrue(function (array $v): bool {
+                    return false === $v['output_path'] && empty($v['builds']);
+                })
+                ->thenInvalid('Default build can only be disabled if multiple entry points are defined.')
+            ->end()
             ->children()
                 ->scalarNode('output_path')
                     ->isRequired()
                     ->info('The path where Encore is building the assets - i.e. Encore.setOutputPath()')
+                ->end()
+                ->enumNode('crossorigin')
+                    ->defaultFalse()
+                    ->values([false, 'anonymous', 'use-credentials'])
+                    ->info('crossorigin value when Encore.enableIntegrityHashes() is used, can be false (default), anonymous or use-credentials')
                 ->end()
                 ->booleanNode('cache')
                     ->info('Enable caching of the entry point file(s)')

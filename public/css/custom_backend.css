@@ -10,3 +10,10 @@
 .markdown-preview::before {
     content: "Preview: ";
 }
+:root {
+    --body-max-width: 1441px;
+}
+
+.badge-success {
+    background-color: #00a2a5;
+}

@@ -718,7 +718,7 @@ class CRUDController implements ContainerAwareInterface
         if (!\is_array($fields->getElements()) || 0 === $fields->count()) {
             @trigger_error(
                 'Calling this method without implementing "configureShowFields"'
-                .' is not supported since 3.x'
+                .' is not supported since 3.40.0'
                 .' and will no longer be possible in 4.0',
                 E_USER_DEPRECATED
             );
@@ -1267,7 +1267,11 @@ class CRUDController implements ContainerAwareInterface
         if (!$url) {
             foreach (['edit', 'show'] as $route) {
                 if ($this->admin->hasRoute($route) && $this->admin->hasAccess($route, $object)) {
-                    $url = $this->admin->generateObjectUrl($route, $object);
+                    $url = $this->admin->generateObjectUrl(
+                        $route,
+                        $object,
+                        $this->getSelectedTab($request)
+                    );
 
                     break;
                 }
@@ -1437,7 +1441,7 @@ class CRUDController implements ContainerAwareInterface
      */
     protected function escapeHtml($s)
     {
-        return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        return htmlspecialchars((string) $s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 
     /**
@@ -1528,6 +1532,11 @@ class CRUDController implements ContainerAwareInterface
         $domain = $domain ?: $this->admin->getTranslationDomain();
 
         return $this->get('translator')->trans($id, $parameters, $domain, $locale);
+    }
+
+    private function getSelectedTab(Request $request)
+    {
+        return array_filter(['_tab' => $request->request->get('_tab')]);
     }
 
     private function checkParentChildAssociation(Request $request, $object): void

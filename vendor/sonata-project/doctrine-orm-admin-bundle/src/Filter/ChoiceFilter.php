@@ -16,13 +16,13 @@ namespace Sonata\DoctrineORMAdminBundle\Filter;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
-use Sonata\CoreBundle\Form\Type\EqualType;
+use Sonata\Form\Type\EqualType;
 
 class ChoiceFilter extends Filter
 {
     public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
     {
-        if (!$data || !\is_array($data) || !array_key_exists('type', $data) || !array_key_exists('value', $data)) {
+        if (!$data || !\is_array($data) || !\array_key_exists('type', $data) || !\array_key_exists('value', $data)) {
             return;
         }
 

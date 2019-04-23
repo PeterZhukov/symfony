@@ -18,9 +18,12 @@ final class TagRenderer
 
     private $packages;
 
+    private $defaultAttributes;
+
     public function __construct(
         $entrypointLookupCollection,
-        Packages $packages
+        Packages $packages,
+        array $defaultAttributes = []
     ) {
         if ($entrypointLookupCollection instanceof EntrypointLookupInterface) {
             @trigger_error(sprintf('The "$entrypointLookupCollection" argument in method "%s()" must be an instance of EntrypointLookupCollection.', __METHOD__), E_USER_DEPRECATED);
@@ -37,15 +40,26 @@ final class TagRenderer
         }
 
         $this->packages = $packages;
+        $this->defaultAttributes = $defaultAttributes;
     }
 
     public function renderWebpackScriptTags(string $entryName, string $packageName = null, string $entrypointName = '_default'): string
     {
         $scriptTags = [];
-        foreach ($this->getEntrypointLookup($entrypointName)->getJavaScriptFiles($entryName) as $filename) {
+        $entryPointLookup = $this->getEntrypointLookup($entrypointName);
+        $integrityHashes = ($entryPointLookup instanceof IntegrityDataProviderInterface) ? $entryPointLookup->getIntegrityData() : [];
+
+        foreach ($entryPointLookup->getJavaScriptFiles($entryName) as $filename) {
+            $attributes = $this->defaultAttributes;
+            $attributes['src'] = $this->getAssetPath($filename, $packageName);
+
+            if (isset($integrityHashes[$filename])) {
+                $attributes['integrity'] = $integrityHashes[$filename];
+            }
+
             $scriptTags[] = sprintf(
-                '<script src="%s"></script>',
-                htmlentities($this->getAssetPath($filename, $packageName))
+                '<script %s></script>',
+                $this->convertArrayToAttributes($attributes)
             );
         }
 
@@ -55,10 +69,21 @@ final class TagRenderer
     public function renderWebpackLinkTags(string $entryName, string $packageName = null, string $entrypointName = '_default'): string
     {
         $scriptTags = [];
-        foreach ($this->getEntrypointLookup($entrypointName)->getCssFiles($entryName) as $filename) {
+        $entryPointLookup = $this->getEntrypointLookup($entrypointName);
+        $integrityHashes = ($entryPointLookup instanceof IntegrityDataProviderInterface) ? $entryPointLookup->getIntegrityData() : [];
+
+        foreach ($entryPointLookup->getCssFiles($entryName) as $filename) {
+            $attributes = $this->defaultAttributes;
+            $attributes['rel'] = 'stylesheet';
+            $attributes['href'] = $this->getAssetPath($filename, $packageName);
+
+            if (isset($integrityHashes[$filename])) {
+                $attributes['integrity'] = $integrityHashes[$filename];
+            }
+
             $scriptTags[] = sprintf(
-                '<link rel="stylesheet" href="%s">',
-                htmlentities($this->getAssetPath($filename, $packageName))
+                '<link %s>',
+                $this->convertArrayToAttributes($attributes)
             );
         }
 
@@ -80,5 +105,16 @@ final class TagRenderer
     private function getEntrypointLookup(string $buildName): EntrypointLookupInterface
     {
         return $this->entrypointLookupCollection->getEntrypointLookup($buildName);
+    }
+
+    private function convertArrayToAttributes(array $attributesMap): string
+    {
+        return implode(' ', array_map(
+            function ($key, $value) {
+                return sprintf('%s="%s"', $key, htmlentities($value));
+            },
+            array_keys($attributesMap),
+            $attributesMap
+        ));
     }
 }

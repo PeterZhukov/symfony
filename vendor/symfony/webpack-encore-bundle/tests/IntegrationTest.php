@@ -1,8 +1,17 @@
 <?php
 
+/*
+ * This file is part of the Symfony WebpackEncoreBundle package.
+ * (c) Fabien Potencier <fabien@symfony.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Symfony\WebpackEncoreBundle\Tests;
 
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 use Symfony\WebpackEncoreBundle\CacheWarmer\EntrypointCacheWarmer;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 use PHPUnit\Framework\TestCase;
@@ -22,12 +31,12 @@ class IntegrationTest extends TestCase
 
         $html1 = $container->get('twig')->render('@integration_test/template.twig');
         $this->assertContains(
-            '<script src="/build/file1.js"></script>',
+            '<script src="/build/file1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script>',
             $html1
         );
         $this->assertContains(
-            '<link rel="stylesheet" href="/build/styles.css">'.
-            '<link rel="stylesheet" href="/build/styles2.css">',
+            '<link rel="stylesheet" href="/build/styles.css" integrity="sha384-4g+Zv0iELStVvA4/B27g4TQHUMwZttA5TEojjUyB8Gl5p7sarU4y+VTSGMrNab8n">'.
+            '<link rel="stylesheet" href="/build/styles2.css" integrity="sha384-hfZmq9+2oI5Cst4/F4YyS2tJAAYdGz7vqSMP8cJoa8bVOr2kxNRLxSw6P8UZjwUn">',
             $html1
         );
         $this->assertContains(
@@ -96,6 +105,14 @@ class IntegrationTest extends TestCase
         // check for both build keys
         $this->assertEquals(['_default' => 0, 'different_build' => 1], $data[0]);
     }
+
+    public function testAutowireableInterfaces()
+    {
+        $kernel = new WebpackEncoreIntegrationTestKernel(true);
+        $kernel->boot();
+        $container = $kernel->getContainer();
+        $this->assertInstanceOf(WebpackEncoreAutowireTestService::class, $container->get(WebpackEncoreAutowireTestService::class));
+    }
 }
 
 class WebpackEncoreIntegrationTestKernel extends Kernel
@@ -119,7 +136,7 @@ class WebpackEncoreIntegrationTestKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(function(ContainerBuilder $container) {
+        $loader->load(function (ContainerBuilder $container) {
             $container->loadFromExtension('framework', [
                 'secret' => 'foo',
                 'assets' => [
@@ -129,7 +146,7 @@ class WebpackEncoreIntegrationTestKernel extends Kernel
 
             $container->loadFromExtension('twig', [
                 'paths' => [
-                    __DIR__.'/fixtures' => 'integration_test'
+                    __DIR__.'/fixtures' => 'integration_test',
                 ],
                 'strict_variables' => true,
             ]);
@@ -137,13 +154,17 @@ class WebpackEncoreIntegrationTestKernel extends Kernel
             $container->loadFromExtension('webpack_encore', [
                 'output_path' => __DIR__.'/fixtures/build',
                 'cache' => true,
+                'crossorigin' => false,
                 'builds' => [
-                    'different_build' =>  __DIR__.'/fixtures/different_build'
-                ]
+                    'different_build' => __DIR__.'/fixtures/different_build',
+                ],
             ]);
 
             $container->register(WebpackEncoreCacheWarmerTester::class)
                 ->addArgument(new Reference('webpack_encore.entrypoint_lookup.cache_warmer'))
+                ->setPublic(true);
+
+            $container->autowire(WebpackEncoreAutowireTestService::class)
                 ->setPublic(true);
         });
     }
@@ -171,5 +192,12 @@ class WebpackEncoreCacheWarmerTester
     public function warmCache(string $cacheDir)
     {
         $this->entrypointCacheWarmer->warmUp($cacheDir);
+    }
+}
+
+class WebpackEncoreAutowireTestService
+{
+    public function __construct(EntrypointLookupInterface $entrypointLookup, EntrypointLookupCollectionInterface $entrypointLookupCollection)
+    {
     }
 }

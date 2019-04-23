@@ -17,14 +17,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
-use Sonata\CoreBundle\Form\Type\EqualType;
+use Sonata\Form\Type\EqualType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ModelFilter extends Filter
 {
     public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
     {
-        if (!$data || !\is_array($data) || !array_key_exists('value', $data) || empty($data['value'])) {
+        if (!$data || !\is_array($data) || !\array_key_exists('value', $data) || empty($data['value'])) {
             return;
         }
 

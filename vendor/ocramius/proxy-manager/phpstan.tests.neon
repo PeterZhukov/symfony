@@ -1,0 +1,7 @@
+parameters:
+    ignoreErrors:
+        # We only mock this dependency, and never really require it:
+        - '#Zend\\Server\\Client#'
+
+includes:
+	- vendor/phpstan/phpstan-phpunit/extension.neon

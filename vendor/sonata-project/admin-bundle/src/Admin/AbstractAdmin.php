@@ -759,6 +759,12 @@ abstract class AbstractAdmin implements AdminInterface, DomainObjectInterface, A
         // build the values array
         if ($this->hasRequest()) {
             $filters = $this->request->query->get('filter', []);
+            if (isset($filters['_page'])) {
+                $filters['_page'] = (int) $filters['_page'];
+            }
+            if (isset($filters['_per_page'])) {
+                $filters['_per_page'] = (int) $filters['_per_page'];
+            }
 
             // if filter persistence is configured
             // NEXT_MAJOR: remove `$this->persistFilters !== false` from the condition
@@ -2908,7 +2914,7 @@ EOT;
 
         $mapper = new ListMapper($this->getListBuilder(), $this->list, $this);
 
-        if (\count($this->getBatchActions()) > 0) {
+        if (\count($this->getBatchActions()) > 0 && $this->hasRequest() && !$this->getRequest()->isXmlHttpRequest()) {
             $fieldDescription = $this->getModelManager()->getNewFieldDescriptionInstance(
                 $this->getClass(),
                 'batch',

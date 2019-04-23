@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'en_US'
+    locale: 'ru2_RU2'
     env(easyadmin_prefix): "/easyadmin"
     easyadmin_prefix: '%env(easyadmin_prefix)%'
     cache_type: file_system
@@ -37,3 +37,25 @@ services:
             - { name: nelmio_alice.faker.provider }
     App\Service\MarkdownTransformer:
         arguments: ['@markdown.parser', '@doctrine_cache.providers.my_markdown_cache']
+
+
+
+    admin.category:
+        class: App\SonataAdmin\CategoryAdmin
+        arguments: [~, App\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Category }
+
+    admin.blog_post:
+        class: App\SonataAdmin\BlogPostAdmin
+        arguments: [~, App\Entity\BlogPost, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: 'Blog post' }
+
+
+
+
+
+
+
+

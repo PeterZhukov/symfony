@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "easycorp/easyadmin-bundle": "^2.1",
         "knplabs/knp-markdown-bundle": "^1.7",
+        "lastguest/murmurhash": "^2.0",
         "php-amqplib/php-amqplib": "^2.9",
         "sensio/framework-extra-bundle": "^5.1",
         "sonata-project/admin-bundle": "^3.45",
@@ -48,7 +49,8 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "disable-tls": false
     },
     "autoload": {
         "psr-4": {
@@ -71,7 +73,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR% --symlink": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

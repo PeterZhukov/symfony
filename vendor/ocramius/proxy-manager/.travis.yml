@@ -1,0 +1,44 @@
+language: php
+cache: false
+
+sudo: false
+
+php:
+  - 7.2
+  - nightly
+
+env:
+  matrix:
+    - DEPENDENCIES="high"
+    - DEPENDENCIES="low"
+  global:
+    - GIT_NAME:  "'Marco Pivetta'"
+    - GIT_EMAIL: ocramius@gmail.com
+    - GH_REF:    github.com/Ocramius/ProxyManager
+    - secure: HUDB66EnmKFx2A+E3HxvuX/7XSjgfNy8dnzcpG+K9mf/JM5JXZflK3xO3J3LCgSQG6Ptwr2yy//7vX+PdJMdSRTmP+d/dy6v8yLRP+GvYZXLIbuKg7dQjLerOxJcy9JhU2eAEBevc002PwFqLalfhCyWLvLiCof8++E2uGbvTSU=
+
+before_script:
+  - sh .travis.install.sh
+
+script:
+  - ./vendor/bin/phpunit --disallow-test-output --coverage-clover ./clover.xml --group=Coverage
+  - ./vendor/bin/phpunit --disallow-test-output --exclude-group=Coverage
+  - php -n ./vendor/bin/phpbench run --revs=100 --iterations=3 --warmup=1 --report=aggregate
+  - echo "Running examples"
+  - php examples/access-interceptor-scope-localizer.php
+  - php examples/ghost-object.php
+  - php examples/ghost-object-skipped-properties.php
+  - php examples/smart-reference.php
+  - php examples/virtual-proxy.php
+  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests/
+  - ./vendor/bin/phpstan analyse -c phpstan.neon -l 7 src
+  - ./vendor/bin/phpstan analyse -c phpstan.tests.neon -l 4 tests
+  - ./vendor/bin/humbug
+
+matrix:
+  allow_failures:
+    - php: nightly
+
+after_script:
+  - sh .travis.coverage.sh
+  - ./vendor/bin/couscous travis-auto-deploy --php-version=7.2

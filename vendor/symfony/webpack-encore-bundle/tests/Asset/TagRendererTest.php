@@ -1,16 +1,24 @@
 <?php
 
+/*
+ * This file is part of the Symfony WebpackEncoreBundle package.
+ * (c) Fabien Potencier <fabien@symfony.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Symfony\WebpackEncoreBundle\Tests\Asset;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
+use Symfony\WebpackEncoreBundle\Asset\IntegrityDataProviderInterface;
 use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 
 class TagRendererTest extends TestCase
 {
-    public function testRenderScriptTags()
+    public function testRenderScriptTagsWithDefaultAttributes()
     {
         $entrypointLookup = $this->createMock(EntrypointLookupInterface::class);
         $entrypointLookup->expects($this->once())
@@ -29,10 +37,10 @@ class TagRendererTest extends TestCase
                 ['/build/file1.js', 'custom_package'],
                 ['/build/file2.js', 'custom_package']
             )
-            ->willReturnCallback(function($path) {
+            ->willReturnCallback(function ($path) {
                 return 'http://localhost:8080'.$path;
             });
-        $renderer = new TagRenderer($entrypointCollection, $packages);
+        $renderer = new TagRenderer($entrypointCollection, $packages,  []);
 
         $output = $renderer->renderWebpackScriptTags('my_entry', 'custom_package');
         $this->assertContains(
@@ -60,14 +68,14 @@ class TagRendererTest extends TestCase
         $packages = $this->createMock(Packages::class);
         $packages->expects($this->once())
             ->method('getUrl')
-            ->willReturnCallback(function($path) {
+            ->willReturnCallback(function ($path) {
                 return 'http://localhost:8080'.$path;
             });
-        $renderer = new TagRenderer($entrypointCollection, $packages);
+        $renderer = new TagRenderer($entrypointCollection, $packages, ['crossorigin'=>'anonymous']);
 
         $output = $renderer->renderWebpackScriptTags('my_entry', 'custom_package');
         $this->assertContains(
-            '<script src="http://localhost:8080/build/file&lt;&quot;bad_chars.js"></script>',
+            '<script crossorigin="anonymous" src="http://localhost:8080/build/file&lt;&quot;bad_chars.js"></script>',
             $output
         );
     }
@@ -106,26 +114,69 @@ class TagRendererTest extends TestCase
                 ['/build/file2.js', null],
                 ['/build/file3.js', 'specific_package']
             )
-            ->willReturnCallback(function($path) {
+            ->willReturnCallback(function ($path) {
                 return 'http://localhost:8080'.$path;
             });
-        $renderer = new TagRenderer($entrypointCollection, $packages);
+        $renderer = new TagRenderer($entrypointCollection, $packages, ['crossorigin'=>'anonymous']);
 
         $output = $renderer->renderWebpackScriptTags('my_entry', 'custom_package');
         $this->assertContains(
-            '<script src="http://localhost:8080/build/file1.js"></script>',
+            '<script crossorigin="anonymous" src="http://localhost:8080/build/file1.js"></script>',
             $output
         );
         $output = $renderer->renderWebpackScriptTags('my_entry', null, 'second');
         $this->assertContains(
-            '<script src="http://localhost:8080/build/file2.js"></script>',
+            '<script crossorigin="anonymous" src="http://localhost:8080/build/file2.js"></script>',
             $output
         );
         $output = $renderer->renderWebpackScriptTags('my_entry', 'specific_package', 'third');
         $this->assertContains(
-            '<script src="http://localhost:8080/build/file3.js"></script>',
+            '<script crossorigin="anonymous" src="http://localhost:8080/build/file3.js"></script>',
             $output
         );
     }
 
+    public function testRenderScriptTagsWithHashes()
+    {
+        $entrypointLookup = $this->createMock([
+            EntrypointLookupInterface::class,
+            IntegrityDataProviderInterface::class,
+        ]);
+        $entrypointLookup->expects($this->once())
+            ->method('getJavaScriptFiles')
+            ->willReturn(['/build/file1.js', '/build/file2.js']);
+        $entrypointLookup->expects($this->once())
+            ->method('getIntegrityData')
+            ->willReturn([
+                '/build/file1.js' => 'sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc',
+                '/build/file2.js' => 'sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J',
+            ]);
+        $entrypointCollection = $this->createMock(EntrypointLookupCollection::class);
+        $entrypointCollection->expects($this->once())
+            ->method('getEntrypointLookup')
+            ->withConsecutive(['_default'])
+            ->will($this->onConsecutiveCalls($entrypointLookup));
+
+        $packages = $this->createMock(Packages::class);
+        $packages->expects($this->exactly(2))
+            ->method('getUrl')
+            ->withConsecutive(
+                ['/build/file1.js', 'custom_package'],
+                ['/build/file2.js', 'custom_package']
+            )
+            ->willReturnCallback(function ($path) {
+                return 'http://localhost:8080'.$path;
+            });
+        $renderer = new TagRenderer($entrypointCollection, $packages, ['crossorigin'=>'anonymous']);
+
+        $output = $renderer->renderWebpackScriptTags('my_entry', 'custom_package');
+        $this->assertContains(
+            '<script crossorigin="anonymous" src="http://localhost:8080/build/file1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script>',
+            $output
+        );
+        $this->assertContains(
+            '<script crossorigin="anonymous" src="http://localhost:8080/build/file2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
+            $output
+        );
+    }
 }

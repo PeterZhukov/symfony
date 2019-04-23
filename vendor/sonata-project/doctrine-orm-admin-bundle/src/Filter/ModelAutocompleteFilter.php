@@ -18,13 +18,13 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\Type\Filter\DefaultType;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
-use Sonata\CoreBundle\Form\Type\EqualType;
+use Sonata\Form\Type\EqualType;
 
 class ModelAutocompleteFilter extends Filter
 {
     public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
     {
-        if (!$data || !\is_array($data) || !array_key_exists('value', $data)) {
+        if (!$data || !\is_array($data) || !\array_key_exists('value', $data)) {
             return;
         }
 
