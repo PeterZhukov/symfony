@@ -1483,7 +1483,7 @@ function twig_constant_is_defined($constant, $object = null)
 function twig_array_batch($items, $size, $fill = null, $preserveKeys = true)
 {
     if (!twig_test_iterable($items)) {
-        throw new RuntimeError(sprintf('The "batch" filter expects an array or "Traversable", got "%s".', \is_object($from) ? \get_class($from) : \gettype($from)));
+        throw new RuntimeError(sprintf('The "batch" filter expects an array or "Traversable", got "%s".', \is_object($items) ? \get_class($items) : \gettype($items)));
     }
 
     $size = ceil($size);
@@ -1601,7 +1601,7 @@ function twig_get_attribute(Environment $env, Source $source, $object, $item, ar
             }
 
             if ($sandboxed) {
-                $env->getExtension(SandboxExtension::class)->checkPropertyAllowed($object, $item);
+                $env->getExtension(SandboxExtension::class)->checkPropertyAllowed($object, $item, $source);
             }
 
             return $object->$item;
@@ -1678,7 +1678,7 @@ function twig_get_attribute(Environment $env, Source $source, $object, $item, ar
     }
 
     if ($sandboxed) {
-        $env->getExtension(SandboxExtension::class)->checkMethodAllowed($object, $method);
+        $env->getExtension(SandboxExtension::class)->checkMethodAllowed($object, $method, $source);
     }
 
     // Some objects throw exceptions when they have __call, and the method we try

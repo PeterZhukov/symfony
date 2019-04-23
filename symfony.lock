@@ -151,6 +151,9 @@
     "knplabs/knp-menu-bundle": {
         "version": "v2.2.1"
     },
+    "lastguest/murmurhash": {
+        "version": "2.0.0"
+    },
     "michelf/php-markdown": {
         "version": "1.8.0"
     },

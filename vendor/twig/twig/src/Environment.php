@@ -38,11 +38,11 @@ use Twig\TokenParser\TokenParserInterface;
  */
 class Environment
 {
-    const VERSION = '2.8.0';
-    const VERSION_ID = 20800;
+    const VERSION = '2.8.1';
+    const VERSION_ID = 20801;
     const MAJOR_VERSION = 2;
     const MINOR_VERSION = 8;
-    const RELEASE_VERSION = 0;
+    const RELEASE_VERSION = 1;
     const EXTRA_VERSION = '';
 
     private $charset;
@@ -402,6 +402,7 @@ class Environment
                 $this->cache->load($key);
             }
 
+            $source = null;
             if (!class_exists($cls, false)) {
                 $source = $this->getLoader()->getSourceContext($name);
                 $content = $this->compileSource($source);
@@ -426,19 +427,7 @@ class Environment
         // to be removed in 3.0
         $this->extensionSet->initRuntime($this);
 
-        if (isset($this->loading[$cls])) {
-            throw new RuntimeError(sprintf('Circular reference detected for Twig template "%s", path: %s.', $name, implode(' -> ', array_merge($this->loading, [$name]))));
-        }
-
-        $this->loading[$cls] = $name;
-
-        try {
-            $this->loadedTemplates[$cls] = new $cls($this);
-        } finally {
-            unset($this->loading[$cls]);
-        }
-
-        return $this->loadedTemplates[$cls];
+        return $this->loadedTemplates[$cls] = new $cls($this);
     }
 
     /**

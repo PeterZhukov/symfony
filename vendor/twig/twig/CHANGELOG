@@ -1,3 +1,9 @@
+* 2.8.1 (2019-04-16)
+
+ * fixed EscaperNodeVisitor
+ * deprecated passing a 3rd, 4th, and 5th arguments to the Sandbox exception classes
+ * deprecated Node::setTemplateName() in favor of Node::setSourceContext()
+
 * 2.8.0 (2019-04-16)
 
  * added Traversable support for the length filter
@@ -200,7 +206,11 @@
  * improved the performance of the filesystem loader
  * removed features that were deprecated in 1.x
 
-* 1.39.0 (2019-XX-XX)
+* 1.39.1 (2019-XX-XX)
+
+ * fixed EscaperNodeVisitor
+
+* 1.39.0 (2019-04-16)
 
  * added Traversable support for the length filter
  * fixed some wrong location in error messages
