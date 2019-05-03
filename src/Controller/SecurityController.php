@@ -36,9 +36,9 @@ class SecurityController extends AbstractController
             // the label displayed for the Sign In form button (the |trans filter is applied to it)
             'sign_in_label' => 'Log in',
             // the 'name' HTML attribute of the <input> used for the username field (default: '_username')
-            'username_parameter' => 'my_custom_username_field',
+            'username_parameter' => 'login_form[_username]',
             // the 'name' HTML attribute of the <input> used for the password field (default: '_password')
-            'password_parameter' => 'my_custom_password_field',
+            'password_parameter' => 'login_form[_password]',
         ]);
     }
 }

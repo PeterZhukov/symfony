@@ -31,7 +31,6 @@ easy_admin:
   entities:
     Genus:
       class: App\Entity\Genus
-      controller: genus_controller_service
       label: 'List of Genuses'
     GenusHorde:
       class: App\Entity\Genus

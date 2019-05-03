@@ -186,6 +186,7 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         array (
             'App\\Tests\\' => 10,
             'App\\' => 4,
+            'AlterPHP\\EasyAdminExtensionBundle\\' => 34,
         ),
     );
 
@@ -670,6 +671,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'AlterPHP\\EasyAdminExtensionBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alterphp/easyadmin-extension-bundle/src',
         ),
     );
 

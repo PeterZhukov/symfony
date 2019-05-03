@@ -125,4 +125,5 @@ return array(
     'Cocur\\Slugify\\' => array($vendorDir . '/cocur/slugify/src'),
     'App\\Tests\\' => array($baseDir . '/tests'),
     'App\\' => array($baseDir . '/src'),
+    'AlterPHP\\EasyAdminExtensionBundle\\' => array($vendorDir . '/alterphp/easyadmin-extension-bundle/src'),
 );

@@ -38,9 +38,6 @@ services:
     App\Service\MarkdownTransformer:
         arguments: ['@markdown.parser', '@doctrine_cache.providers.my_markdown_cache']
 
-    genus_controller_service:
-        class: App\Controller\EasyAdmin\AdminController
-
 
     admin.category:
         class: App\SonataAdmin\CategoryAdmin

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\EasyAdmin;
+namespace App\Controller;
 
 use App\Entity\Genus;
 use App\Repository\GenusRepository;
@@ -9,6 +9,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class AdminController extends BaseEasyAdminController
 {
+
+    /**
+     * @Route("/test", name="admin_test")
+     */
+    public function testAction(){
+        return $this->render('@EasyAdmin/page/content.html.twig');
+    }
     /**
      * @Route("/dashboard", name="admin_dashboard")
      */
