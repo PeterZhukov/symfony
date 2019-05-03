@@ -2,43 +2,43 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use App\Form\LoginForm;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends Controller
+class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="security_login")
      */
-    public function loginAction()
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
-
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $form = $this->createForm(LoginForm::class, [
-            '_username' => $lastUsername,
-        ]);
-    
-        return $this->render(
-            'security/login.html.twig',
-            array(
-                'form' => $form->createView(),
-                'error' => $error,
-            )
-        );
-    }
+        return $this->render('@EasyAdmin/page/login.html.twig', [
+            // parameters usually defined in Symfony login forms
+            'error' => $error,
+            'last_username' => $lastUsername,
 
-    /**
-     * @Route("/logout", name="security_logout")
-     */
-    public function logoutAction()
-    {
-        throw new \Exception('this should not be reached!');
+            // OPTIONAL parameters to customize the login form:
+
+            // the string used to generate the CSRF token. If you don't define
+            // this parameter, the login form won't include a CSRF token
+            'csrf_token_intention' => 'authenticate',
+            // the URL users are redirected to after the login (default: path('easyadmin'))
+            'target_path' => $this->generateUrl('admin_dashboard'),
+            // the label displayed for the username form field (the |trans filter is applied to it)
+            'username_label' => 'Your username',
+            // the label displayed for the password form field (the |trans filter is applied to it)
+            'password_label' => 'Your password',
+            // the label displayed for the Sign In form button (the |trans filter is applied to it)
+            'sign_in_label' => 'Log in',
+            // the 'name' HTML attribute of the <input> used for the username field (default: '_username')
+            'username_parameter' => 'my_custom_username_field',
+            // the 'name' HTML attribute of the <input> used for the password field (default: '_password')
+            'password_parameter' => 'my_custom_password_field',
+        ]);
     }
 }

@@ -3,9 +3,8 @@ namespace App\Controller\EasyAdmin;
 
 use App\Entity\Genus;
 use App\Service\CsvExporter;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseEasyAdminController;
 
-class GenusController extends BaseEasyAdminController {
+class GenusController extends AdminController {
     /**
      * @var CsvExporter
      */

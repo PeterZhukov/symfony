@@ -21,131 +21,21 @@ easy_admin:
     form_theme:
       - '@EasyAdmin/form/bootstrap_4.html.twig'
       - 'Form/_form_theme.html.twig'
+      - '@EasyAdmin/default/my_form_theme.html.twig'
     menu:
-      - { label: Dashboard, route: admin_dashboard, default: true }
-      - { entity: User, label: Users, icon: user }
-      -
-        label: Genus
-        children:
-          - Genus
-          -
-            entity: Genus
-            label: 'Genuses (sorted by ID)'
-            params:
-              sortField: id
-              sortDirection: ASC
-              pizza: delicious
-          - GenusHorde
-          - { label: Related }
-          - { entity: GenusNote, label: Notes, icon: sticky-note }
-          - { entity: SubFamily, label: Sub-Families }
-  user:
-    avatar_property_path: 'avatar_uri'
-    name_property_path: 'email'
+      - { label: Dashboard, route: admin_dashboard, defaul: true}
+      - { entity: Genus }
+      - { entity: GenusHorde }
+      - { entity: GenusNote }
+      - { entity: User }
   entities:
     Genus:
       class: App\Entity\Genus
-      controller: App\Controller\EasyAdmin\GenusController
-      label: Genuses
-      help: 'Genuses are not covered by warranty!'
-      list:
-        help: 'Do not feed!'
-        actions:
-          - { name: edit, icon: pencil, label: Edit }
-          - { name: show, icon: info-circle, label: '' }
-        fields:
-          - id
-          - name
-          - isPublished
-          - { property: firstDiscoveredAt, format: 'M Y', label: Discovered }
-          - { property: speciesCount, format: '%b' }
-        sort:
-          - name
-          - ASC
-        enable_export: true
-      search:
-        help: ~
-        fields:
-          - id
-          - name
-          - funFact
-      form:
-        fields:
-          - { property: id, type_options: { disabled: true } }
-          - name
-          - speciesCount
-          - { property: funFact, type: textarea, css_class: 'js-markdown-input' }
-          - { property: isPublished, label: 'Is Published?' }
-          - { property: firstDiscoveredAt, type_options: { widget: single_text } }
-          - { property: subFamily, type: easyadmin_autocomplete }
-          -
-            property: genusScientists
-            type: text
-            type_options:
-              mapped: false
-              attr: { class: 'js-scientists-field' }
-      new:
-        fields:
-          - '-id'
-      edit:
-        fields:
-          -
-            property: slug
-            help: 'Unique auto-generated value'
-            type_options: { disabled: true }
-      show:
-        actions:
-          -
-            name: genus_feed
-            type: route
-            label: Feed genus
-            css_class: 'btn btn-info'
-            icon: cutlery
+      controller: genus_controller_service
+      label: 'List of Genuses'
     GenusHorde:
       class: App\Entity\Genus
-      label: HORDE of Genuses
-      list:
-        dql_filter: 'entity.speciesCount >= 50000 and entity.isPublished = true'
-        sort: speciesCount
-        help: 'Run for your life!!!'
     GenusNote:
       class: App\Entity\GenusNote
-      label: 'Genus Notes'
-      list:
-        title: 'List of Notes'
-        fields:
-          - id
-          - username
-          - { property: userAvatarFilename, label: 'User avatar', type: image, base_path: '/images/', sortable: false }
-          - createdAt
-          - genus
-        sort: ['genus.name', 'ASC']
-    SubFamily:
-      class: App\Entity\SubFamily
-      list:
-        actions: ['-show']
-      disabled_actions:
-        - show
     User:
       class: App\Entity\User
-      list:
-        fields:
-          - id
-          - { property: email, type: email }
-          - { property: isScientist, label: 'Is Scientist?', type: boolean }
-          - { property: fullName, template: '@EasyAdmin/default/_field_user_full_name.html.twig' }
-          - { property: avatarUri, type: image }
-      form:
-        fields:
-          - { type: section, label: 'User details' }
-          - { property: fullName, type: text, help: 'First then Last' }
-          - { type: divider }
-          - avatarUri
-          - { type: divider }
-          - email
-          - { type: divider }
-          - isScientist
-          - universityName
-  list:
-    title: 'List of %%entity_label%%'
-    actions: ['show']
