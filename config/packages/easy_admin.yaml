@@ -10,10 +10,10 @@ easy_admin:
     brand_color: '#1ABC9C'
     assets:
       css:
+        - 'bundles/easyadmin/bootstrap-all.css'
         - 'css/custom_backend.css'
-        #- '/bundles/easyadmin/bootstrap-all.css'
       js:
-        #- /bundles\/easyadmin/bootstrap-all.js
+        - 'bundles/easyadmin/bootstrap-all.js'
         - https://unpkg.com/snarkdown@1.2.2/dist/snarkdown.umd.js
         - /js/custom_backend.js
     templates:
@@ -31,7 +31,19 @@ easy_admin:
   entities:
     Genus:
       class: App\Entity\Genus
-      label: 'List of Genuses'
+      label: 'Listing of Genuses'
+      list:
+        form_filters:
+          - id
+          - { name: name, property: name, type: Symfony\Component\Form\Extension\Core\Type\TextType, operator: like }
+        batch_actions: [ 'enable', 'disable' ]
+        actions:
+          - { name: genus_enable, type: route, label: 'Enable' }
+      form:
+        form_options: { attr: { class: mytestclass2 } }
+        fields:
+          - id
+          - { property: name, type_options: { attr: { class:  tinymce2} } }
     GenusHorde:
       class: App\Entity\Genus
     GenusNote:

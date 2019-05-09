@@ -3,7 +3,7 @@ namespace App\Controller\EasyAdmin;
 
 use App\Entity\Genus;
 use App\Service\CsvExporter;
-use App\Controller\AdminController;
+use App\Controller\EasyAdmin\AdminController;
 
 class GenusController extends AdminController {
     /**

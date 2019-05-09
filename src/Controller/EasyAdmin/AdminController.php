@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\EasyAdmin;
 
 use App\Entity\Genus;
 use App\Repository\GenusRepository;
@@ -30,5 +30,33 @@ class AdminController extends BaseEasyAdminController
             'publishedGenusCount' => $genusRepository->getPublishedGenusCount(),
             'randomGenus' => $genusRepository->findRandomGenus()
         ]);
+    }
+
+    public function enableBatchAction(array $ids)
+    {
+        $class = $this->entity['class'];
+        $em = $this->getDoctrine()->getManagerForClass($class);
+
+        foreach ($ids as $id) {
+            /** @var \App\Entity\Genus $genus */
+            $genus = $em->find($class, $id);
+            $genus->setIsPublished(true);
+        }
+
+        $this->em->flush();
+    }
+
+    public function disableBatchAction(array $ids)
+    {
+        $class = $this->entity['class'];
+        $em = $this->getDoctrine()->getManagerForClass($class);
+
+        foreach ($ids as $id) {
+            /** @var \App\Entity\Genus $genus */
+            $genus = $em->find($class, $id);
+            $genus->setIsPublished(false);
+        }
+
+        $this->em->flush();
     }
 }

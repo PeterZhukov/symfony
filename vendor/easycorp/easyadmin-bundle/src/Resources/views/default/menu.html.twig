@@ -44,7 +44,6 @@
                 {% set is_selected_submenu = is_selected_menu and app.request.query.get('submenuIndex')|default(-1) != -1 %}
                 <li class="{{ item.type == 'divider' ? 'header' }} {{ item.children is not empty ? 'treeview' }} {{ is_selected_menu ? 'active' }} {{ is_selected_submenu ? 'submenu-active' }}">
                     {{ helper.render_menu_item(item, _translation_domain) }}
-
                     {% if item.children|default([]) is not empty %}
                         <ul class="treeview-menu">
                             {% for subitem in item.children %}
