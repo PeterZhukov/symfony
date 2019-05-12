@@ -37,6 +37,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         array (
             'Webmozart\\Assert\\' => 17,
         ),
+        'V' => 
+        array (
+            'Vich\\UploaderBundle\\' => 20,
+        ),
         'T' => 
         array (
             'Twig\\Extensions\\' => 16,
@@ -136,6 +140,7 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         array (
             'Monolog\\' => 8,
             'Michelf\\' => 8,
+            'Metadata\\' => 9,
         ),
         'K' => 
         array (
@@ -212,6 +217,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Vich\\UploaderBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vich/uploader-bundle',
         ),
         'Twig\\Extensions\\' => 
         array (
@@ -552,6 +561,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'Michelf\\' => 
         array (
             0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
+        ),
+        'Metadata\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/metadata/src',
         ),
         'Knp\\Menu\\' => 
         array (

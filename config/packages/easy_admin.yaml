@@ -20,7 +20,6 @@ easy_admin:
       field_id: 'admin/fields/_id.html.twig'
     form_theme:
       - '@EasyAdmin/form/bootstrap_4.html.twig'
-      - 'Form/_form_theme.html.twig'
       - '@EasyAdmin/default/my_form_theme.html.twig'
     menu:
       - { label: Dashboard, route: admin_dashboard, defaul: true}
@@ -28,6 +27,8 @@ easy_admin:
       - { entity: GenusHorde }
       - { entity: GenusNote }
       - { entity: User }
+  show:
+    max_results: 3
   entities:
     Genus:
       class: App\Entity\Genus
@@ -36,17 +37,23 @@ easy_admin:
         form_filters:
           - id
           - { name: name, property: name, type: Symfony\Component\Form\Extension\Core\Type\TextType, operator: like }
-        batch_actions: [ 'enable', 'disable' ]
         actions:
-          - { name: genus_enable, type: route, label: 'Enable' }
+          - show
       form:
         form_options: { attr: { class: mytestclass2 } }
         fields:
+          - { type: 'group', columns: 4, label: 'User Details', css_class: 'w-100' }
           - id
           - { property: name, type_options: { attr: { class:  tinymce2} } }
+          - { type: 'group', label: 'Contact Information', columns: 6 }
+          - { property: notes, type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\GenusNote' }}
+      show:
+        max_results: 3
     GenusHorde:
       class: App\Entity\Genus
     GenusNote:
       class: App\Entity\GenusNote
+      show:
+        max_results: 3
     User:
       class: App\Entity\User
