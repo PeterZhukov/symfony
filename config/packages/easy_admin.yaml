@@ -10,12 +10,12 @@ easy_admin:
     brand_color: '#1ABC9C'
     assets:
       css:
-        - 'bundles/easyadmin/bootstrap-all.css'
+        #- 'bundles/easyadmin/bootstrap-all.css'
         - 'css/custom_backend.css'
       js:
-        - 'bundles/easyadmin/bootstrap-all.js'
+        #- 'bundles/easyadmin/bootstrap-all.js'
         - https://unpkg.com/snarkdown@1.2.2/dist/snarkdown.umd.js
-        - /js/custom_backend.js
+        - /js/custom_backend.jsThis user is already studying this genus
     templates:
       field_id: 'admin/fields/_id.html.twig'
     form_theme:
@@ -34,6 +34,10 @@ easy_admin:
       class: App\Entity\Genus
       label: 'Listing of Genuses'
       list:
+        fields:
+          - id
+          - name
+          - { property: image, type: image, base_path: '%app.path.product_images%' }
         form_filters:
           - id
           - { name: name, property: name, type: Symfony\Component\Form\Extension\Core\Type\TextType, operator: like }
@@ -47,8 +51,13 @@ easy_admin:
           - { property: name, type_options: { attr: { class:  tinymce2} } }
           - { type: 'group', label: 'Contact Information', columns: 6 }
           - { property: notes, type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\GenusNote' }}
+          - { property: imageFile, type: vich_image }
       show:
         max_results: 3
+        fields:
+          - id
+          - name
+          - { property: image, type: image, base_path: '%app.path.product_images%' }
     GenusHorde:
       class: App\Entity\Genus
     GenusNote:

@@ -8,6 +8,7 @@ parameters:
     env(easyadmin_prefix): "/easyadmin"
     easyadmin_prefix: '%env(easyadmin_prefix)%'
     cache_type: file_system
+    app.path.product_images: /uploads/images/products/
 
 services:
     # default configuration for services in *this* file
