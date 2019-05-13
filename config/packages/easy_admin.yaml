@@ -37,10 +37,7 @@ easy_admin:
         fields:
           - id
           - name
-          - { property: image, type: image, base_path: '%app.path.product_images%' }
-        form_filters:
-          - id
-          - { name: name, property: name, type: Symfony\Component\Form\Extension\Core\Type\TextType, operator: like }
+          - { property: 'testImage', type: 'image', base_path: '%app.path.test_images%' }
         actions:
           - show
       form:
@@ -51,7 +48,7 @@ easy_admin:
           - { property: name, type_options: { attr: { class:  tinymce2} } }
           - { type: 'group', label: 'Contact Information', columns: 6 }
           - { property: notes, type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\GenusNote' }}
-          - { property: imageFile, type: vich_image }
+          - { property: 'testImageFile', type: 'vich_image' }
       show:
         max_results: 3
         fields:

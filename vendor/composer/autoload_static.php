@@ -158,6 +158,7 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
             'Fidry\\AliceDataFixtures\\' => 24,
             'Faker\\' => 6,
             'Facebook\\WebDriver\\' => 19,
+            'FOS\\CKEditorBundle\\' => 19,
         ),
         'E' => 
         array (
@@ -597,6 +598,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'Facebook\\WebDriver\\' => 
         array (
             0 => __DIR__ . '/..' . '/facebook/webdriver/lib',
+        ),
+        'FOS\\CKEditorBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/ckeditor-bundle/src',
         ),
         'Egulias\\EmailValidator\\' => 
         array (

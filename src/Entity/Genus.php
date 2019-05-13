@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -98,6 +99,32 @@ class Genus
      * @var File
      */
     private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $contract;
+
+    /**
+     * @Vich\UploadableField(mapping="user_contracts", fileNameProperty="contract")
+     * @var File
+     */
+    private $contractFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $testImage;
+
+
+    /**
+     * @Vich\UploadableField(mapping="test_images", fileNameProperty="testImage")
+     * @var File
+     */
+    private $testImageFile;
+
 
     public function __construct()
     {
@@ -269,6 +296,9 @@ class Genus
     public function setImageFile(File $imageFile): void
     {
         $this->imageFile = $imageFile;
+        if ($imageFile instanceof UploadedFile){
+            $this->setImage($imageFile->getClientOriginalName());
+        }
     }
 
     /**
@@ -282,8 +312,87 @@ class Genus
     /**
      * @param string $image
      */
-    public function setImage(string $image): void
+    public function setImage(string $image = null): void
     {
+        if ($image === null){
+            $image = '';
+        }
         $this->image = $image;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContract(): string
+    {
+        return $this->contract;
+    }
+
+    /**
+     * @param string $contract
+     */
+    public function setContract(string $contract = null): void
+    {
+        if ($contract === null){
+            $contract = '';
+        }
+        $this->contract = $contract;
+    }
+
+    /**
+     * @return File
+     */
+    public function getContractFile()
+    {
+        return $this->contractFile;
+    }
+
+    /**
+     * @param File $contractFile
+     */
+    public function setContractFile(File $contractFile): void
+    {
+        $this->contractFile = $contractFile;
+        if ($contractFile instanceof UploadedFile){
+            $this->setContract($contractFile->getClientOriginalName());
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getTestImage(): string
+    {
+        return $this->testImage;
+    }
+
+    /**
+     * @param string $testImage
+     */
+    public function setTestImage(?string $testImage): void
+    {
+        if (empty($testImage)){
+            $testImage = '';
+        }
+        $this->testImage = $testImage;
+    }
+
+    /**
+     * @return File
+     */
+    public function getTestImageFile()
+    {
+        return $this->testImageFile;
+    }
+
+    /**
+     * @param File $testImageFile
+     */
+    public function setTestImageFile(File $testImageFile): void
+    {
+        $this->testImageFile = $testImageFile;
+        if ($testImageFile instanceof UploadedFile){
+            $this->setTestImage($testImageFile->getClientOriginalName());
+        }
     }
 }

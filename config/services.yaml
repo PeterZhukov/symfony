@@ -9,6 +9,8 @@ parameters:
     easyadmin_prefix: '%env(easyadmin_prefix)%'
     cache_type: file_system
     app.path.product_images: /uploads/images/products/
+    app.path.user_contracts: /uploads/images/contracts/
+    app.path.test_images: /uploads/images/test_images/
 
 services:
     # default configuration for services in *this* file
