@@ -89,7 +89,7 @@ class Genus
     private $genusScientists;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $image;
@@ -101,7 +101,7 @@ class Genus
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $contract;
@@ -113,7 +113,7 @@ class Genus
     private $contractFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $testImage;
@@ -323,7 +323,7 @@ class Genus
     /**
      * @return string
      */
-    public function getContract(): string
+    public function getContract()
     {
         return $this->contract;
     }
@@ -361,7 +361,7 @@ class Genus
     /**
      * @return string
      */
-    public function getTestImage(): string
+    public function getTestImage()
     {
         return $this->testImage;
     }

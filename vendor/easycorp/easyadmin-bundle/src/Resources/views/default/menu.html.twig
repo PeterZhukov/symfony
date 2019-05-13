@@ -22,9 +22,9 @@
            class="{{ item.css_class|default('') }}"
            {% if item.target|default(false) %}target="{{ item.target }}"{% endif %}
            {% if item.rel|default(false) %}rel="{{ item.rel }}"{% endif %}>
-            {% if item.icon is not empty %}<i class="fa {{ item.icon }}"></i>{% endif %}
+            {% if item.icon is not empty %}<i class="fa fa-fw {{ item.icon }}"></i>{% endif %}
             <span>{{ item.label|trans(domain = translation_domain) }}</span>
-            {% if item.children|default([]) is not empty %}<i class="fa fa-angle-right treeview-icon"></i>{% endif %}
+            {% if item.children|default([]) is not empty %}<i class="fa fa-fw fa-angle-right treeview-icon"></i>{% endif %}
         </a>
     {% endif %}
 {% endmacro %}
@@ -44,6 +44,7 @@
                 {% set is_selected_submenu = is_selected_menu and app.request.query.get('submenuIndex')|default(-1) != -1 %}
                 <li class="{{ item.type == 'divider' ? 'header' }} {{ item.children is not empty ? 'treeview' }} {{ is_selected_menu ? 'active' }} {{ is_selected_submenu ? 'submenu-active' }}">
                     {{ helper.render_menu_item(item, _translation_domain) }}
+
                     {% if item.children|default([]) is not empty %}
                         <ul class="treeview-menu">
                             {% for subitem in item.children %}

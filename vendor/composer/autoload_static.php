@@ -4,18 +4,23 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
+class ComposerStaticInitdb2b28423db6eee24a0daab6a32f23dd
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        'e1e8b49c332434256b5df11b0f0c2a62' => __DIR__ . '/..' . '/league/uri-parser/src/functions_include.php',
+        '20f378a8a84881cf108b4428c19cf452' => __DIR__ . '/..' . '/league/uri-hostname-parser/src/functions_include.php',
+        '244240de28ad61783068aef6c6b63aea' => __DIR__ . '/..' . '/league/uri-schemes/src/functions_include.php',
+        '48197193621c5ab80fbc196827e806d1' => __DIR__ . '/..' . '/league/uri-components/src/functions_include.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'd11dcc0191a380951885e568af488540' => __DIR__ . '/..' . '/sonata-project/block-bundle/src/Resources/stubs/symfony2.php',
+        'eadffebc88609f262c6ec51faebeac60' => __DIR__ . '/..' . '/league/uri-manipulations/src/functions_include.php',
         '3722f872abd441c379baeab7b88038ba' => __DIR__ . '/..' . '/nelmio/alice/src/deep_clone.php',
     );
 
@@ -125,6 +130,7 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Link\\' => 9,
+            'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
@@ -141,6 +147,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
             'Monolog\\' => 8,
             'Michelf\\' => 8,
             'Metadata\\' => 9,
+        ),
+        'L' => 
+        array (
+            'League\\Uri\\' => 11,
         ),
         'K' => 
         array (
@@ -527,6 +537,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         array (
             0 => __DIR__ . '/..' . '/psr/link/src',
         ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
@@ -566,6 +580,15 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
         'Metadata\\' => 
         array (
             0 => __DIR__ . '/..' . '/jms/metadata/src',
+        ),
+        'League\\Uri\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/uri-components/src',
+            1 => __DIR__ . '/..' . '/league/uri-hostname-parser/src',
+            2 => __DIR__ . '/..' . '/league/uri-interfaces/src',
+            3 => __DIR__ . '/..' . '/league/uri-manipulations/src',
+            4 => __DIR__ . '/..' . '/league/uri-parser/src',
+            5 => __DIR__ . '/..' . '/league/uri-schemes/src',
         ),
         'Knp\\Menu\\' => 
         array (
@@ -777,10 +800,10 @@ class ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit75a521fd4e25b6fe236589e327ffbdab::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdb2b28423db6eee24a0daab6a32f23dd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdb2b28423db6eee24a0daab6a32f23dd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitdb2b28423db6eee24a0daab6a32f23dd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitdb2b28423db6eee24a0daab6a32f23dd::$classMap;
 
         }, null, ClassLoader::class);
     }
