@@ -15,7 +15,3 @@ framework:
     #fragments: true
     php_errors:
         log: true
-    assets:
-        packages:
-            user_contracts:
-                base_path: '%app.path.user_contracts%'

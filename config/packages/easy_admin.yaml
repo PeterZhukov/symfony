@@ -12,9 +12,7 @@ easy_admin:
       css:
         #- 'bundles/easyadmin/bootstrap-all.css'
         - '/css/custom_backend.css'
-        - 'bundles/easyadmin/app.css'
       js:
-        - '/bundles/easyadmin/app.js'
         #- 'bundles/easyadmin/bootstrap-all.js'
         - https://unpkg.com/snarkdown@1.2.2/dist/snarkdown.umd.js
         - /js/custom_backend.jsThis user is already studying this genus
@@ -47,7 +45,7 @@ easy_admin:
         fields:
           - { type: 'group', columns: 4, label: 'User Details', css_class: 'w-100' }
           - id
-          - { property: name, type_options: { attr: { class:  tinymce2} } }
+          - { property: name, type: 'fos_ckeditor' }
           - { type: 'group', label: 'Contact Information', columns: 6 }
           - { property: notes, type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\GenusNote' }}
           - { property: 'testImageFile', type: 'vich_image' }
