@@ -1,0 +1,4 @@
+easy_admin:
+  site_name: Aqua<i>Note</i>
+  show:
+    max_results: 3

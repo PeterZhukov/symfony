@@ -59,4 +59,17 @@ class AdminController extends BaseEasyAdminController
 
         $this->em->flush();
     }
+
+    public function restockAction(){
+        $id = $this->request->query->get('id');
+        $this->addFlash('foo', $id.' has been restocked 2.');
+        return $this->redirectToRoute('easyadmin', array(
+           'action' => 'list',
+           'entity' => $this->request->query->get('entity'),
+        ));
+    }
+
+    public function approveBatchAction(array $ids){
+        $this->addFlash('foo', $this->request->query->get('entity').' '.implode(', ', $ids). ' has been batch approved');
+    }
 }

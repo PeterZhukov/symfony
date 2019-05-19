@@ -1,0 +1,6 @@
+easy_admin:
+  entities:
+    GenusNote:
+      class: App\Entity\GenusNote
+      show:
+        max_results: 3

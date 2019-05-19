@@ -1,0 +1,25 @@
+easy_admin:
+  design:
+    brand_color: '#1ABC9C'
+    assets:
+      css:
+        #- 'bundles/easyadmin/bootstrap-all.css'
+        - '/css/custom_backend.css'
+        - 'bundles/easyadmin/app.css'
+      js:
+        - '/bundles/easyadmin/app.js'
+        #- 'bundles/easyadmin/bootstrap-all.js'
+        - https://unpkg.com/snarkdown@1.2.2/dist/snarkdown.umd.js
+        - /js/custom_backend.jsThis user is already studying this genus
+    templates:
+      field_id: 'admin/fields/_id.html.twig'
+    form_theme:
+      - '@EasyAdmin/form/bootstrap_4.html.twig'
+      - '@EasyAdmin/default/my_form_theme.html.twig'
+    menu:
+      - { label: Dashboard, route: admin_dashboard, defaul: true}
+      - { entity: GenusHorde }
+      - { entity: Genus }
+      - { entity: GenusNote }
+      - { entity: User }
+      - { label: "Test" }

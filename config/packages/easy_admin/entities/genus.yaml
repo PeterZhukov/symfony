@@ -1,0 +1,30 @@
+easy_admin:
+  entities:
+    Genus:
+      class: App\Entity\Genus
+      label: 'Listing of Genuses 5'
+      list:
+        fields:
+          - id
+          - name
+          - { property: 'testImage', type: 'image', base_path: '%app.path.test_images%' }
+        actions:
+          - show
+          - { name: restock, , icon: 'plus-square' }
+          - { name: my_testtest, type: route, label: 'My Test Action' }
+        batch_actions: [ approve, { name: my_testtest, type: method, label: TestTest } ]
+      form:
+        form_options: { attr: { class: mytestclass2 } }
+        fields:
+          - { type: 'group', columns: 4, label: 'User Details', css_class: 'w-100' }
+          - id
+          - { property: name, type: fos_ckeditor, type_options: { config_name: test_config } }
+          - { type: 'group', label: 'Contact Information', columns: 6 }
+          - { property: notes, type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\GenusNote' }}
+          - { property: 'testImageFile', type: 'vich_image' }
+      show:
+        max_results: 3
+        fields:
+          - id
+          - name
+          - { property: image, type: image, base_path: '%app.path.product_images%' }
