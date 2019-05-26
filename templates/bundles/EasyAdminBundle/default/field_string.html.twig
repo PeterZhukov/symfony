@@ -1,0 +1,9 @@
+{% if view == 'show' %}
+    {{ value|nl2br }}
+{% else %}
+    {% if field_options.trans|default(false) %}
+        <span title="{{ value }}">{{ value|striptags|trans({}, field_options.domain|default('messages'))|easyadmin_truncate }}</span>
+    {% else %}
+        <span title="{{ value }}">{{ value|striptags|easyadmin_truncate }}</span>
+    {% endif %}
+{% endif %}

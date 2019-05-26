@@ -117,7 +117,6 @@ class TranslationExtension extends AbstractExtension
         if (null === $this->translator) {
             return $this->doTrans($message, $arguments, $domain, $locale);
         }
-
         return $this->translator->trans($message, $arguments, $domain, $locale);
     }
 
